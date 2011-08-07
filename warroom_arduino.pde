@@ -21,7 +21,12 @@ const int releaseDelay = 200;
 const int solDigOutPin1 = 4;
 const int solDigOutPin2 = 9;
 
-void setup() { Serial.begin(9600); }
+void setup() { 
+  Serial.begin(9600); 
+  
+  // For debug
+  pinMode(13, OUTPUT); 
+}
 
 void loop() {
 	
@@ -59,8 +64,10 @@ void triggerSolenoid(int value) {
   // 
   if(value == REP) {
     digitalWrite(solDigOutPin1, HIGH);
+    digitalWrite(13, HIGH);
   } else if(value == DEM) {
     digitalWrite(solDigOutPin2, HIGH);
+    digitalWrite(13, LOW);
   }
   delay(releaseDelay);
   digitalWrite(solDigOutPin2, LOW);
