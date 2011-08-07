@@ -14,18 +14,20 @@
 #define MESSAGE_BYTES	3 // total bytes in a single message
 
 // Time before solenoid released
-const int releaseDelay = 200;
+const int releaseDelay = 1000;
 
 
-// Republicans on pin 4, Democrats on pin 9
-const int solDigOutPin1 = 4;
+// Republicans on pin 11, Democrats on pin 9
+const int solDigOutPin1 = 11;
 const int solDigOutPin2 = 9;
 
 void setup() { 
   Serial.begin(9600); 
   
   // For debug
-  pinMode(13, OUTPUT); 
+  pinMode(13, OUTPUT);
+  pinMode(solDigOutPin1, OUTPUT);
+  pinMode(solDigOutPin2, OUTPUT);
 }
 
 void loop() {
@@ -65,8 +67,12 @@ void triggerSolenoid(int value) {
   if(value == REP) {
     digitalWrite(solDigOutPin1, HIGH);
     digitalWrite(13, HIGH);
+    delay(200);
+    digitalWrite(13, LOW);
   } else if(value == DEM) {
     digitalWrite(solDigOutPin2, HIGH);
+    digitalWrite(13, HIGH);
+    delay(200);
     digitalWrite(13, LOW);
   }
   delay(releaseDelay);
